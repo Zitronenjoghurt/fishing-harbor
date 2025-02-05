@@ -1,0 +1,25 @@
+name: fishing-harbor-bot
+
+services:
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - ../.env
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - ..:/app
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

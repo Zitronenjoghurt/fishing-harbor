@@ -1,0 +1,30 @@
+name: fishing-harbor-bot-dev
+
+services:
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - ../.env.dev
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    env_file:
+      - ../.env.dev
+    volumes:
+      - ..:/app
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/app/target
+    depends_on:
+      - db
+    command: cargo watch -x run
+
+volumes:
+  postgres_data_dev:
+  cargo-cache:
+  target-cache:
