@@ -1,4 +1,6 @@
 use crate::enums::colors::Colors;
+use crate::errors::command::CommandError;
+use crate::service_provider::ServiceProviderInterface;
 use crate::ui::embeds::create_user_color_embed;
 use crate::{PoiseContext, PoiseError};
 use poise::CreateReply;
@@ -14,6 +16,13 @@ pub async fn ping(ctx: PoiseContext<'_>) -> Result<(), PoiseError> {
 
     let reply = CreateReply::default().embed(embed);
     ctx.send(reply).await?;
+
+    // For testing purposes
+    let (bot_user, fish_user) = ctx
+        .data()
+        .bot_user_service()
+        .register_or_fetch_user(author)
+        .map_err(CommandError::from)?;
 
     Ok(())
 }

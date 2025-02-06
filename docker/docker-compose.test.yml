@@ -1,26 +1,26 @@
-name: fishing-harbor-bot
+name: fishing-harbor-bot-test
 
 services:
   db:
     image: postgres:17
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_test:/var/lib/postgresql/data
       - ../init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
     env_file:
-      - ../.env
+      - ../.env.dist
 
   app:
     build:
       context: ..
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.test
     env_file:
-      - ../.env
+      - ../.env.dist
     volumes:
       - ..:/app
     depends_on:
       - db
 
 volumes:
-  postgres_data:
+  postgres_data_test:
