@@ -1,7 +1,7 @@
 use crate::enums::colors::Colors;
 use crate::errors::command::CommandError;
 use crate::service_provider::ServiceProviderInterface;
-use crate::ui::embeds::create_user_color_embed;
+use crate::ui::custom_embeds::create_user_color_embed;
 use crate::{PoiseContext, PoiseError};
 use poise::CreateReply;
 

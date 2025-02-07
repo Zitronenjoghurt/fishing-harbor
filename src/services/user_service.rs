@@ -42,10 +42,10 @@ impl UserServiceInterface for UserService {
         let id = user.id.get() as i64;
         let name = user.name.clone();
 
-        let mut bot_user = self
-            .bot_user_repository
-            .find(id)?
-            .unwrap_or(self.create_and_save_bot_user(id, name.clone())?);
+        let mut bot_user = match self.bot_user_repository.find(id)? {
+            Some(user) => user,
+            None => self.create_and_save_bot_user(id, name.clone())?,
+        };
 
         bot_user.username = name;
         Ok(self.bot_user_repository.save(bot_user)?)

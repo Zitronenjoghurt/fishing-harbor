@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct EmbedFields<N, V>(HashMap<N, (V, bool)>);
 
 impl Default for EmbedFields<String, String> {

@@ -23,7 +23,7 @@ services:
       - target-cache:/app/target
     depends_on:
       - db
-    command: cargo watch -x run
+    command: cargo watch -d 30 -x run
 
 volumes:
   postgres_data_dev:
